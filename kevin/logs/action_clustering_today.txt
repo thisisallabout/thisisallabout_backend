@@ -1,0 +1,167 @@
+{'target': 'today'} today
+* PROCESS Initiated /type=daily /init=cluster
+HEAD_CLUSTER: Setting up MongoClient kevin@main 
+
+HEAD_CLUSTER: Start loading articles from database: 24 mode
+HEAD_CLUSTER: Timestamp of the last item: 1548813808
+HEAD_CLUSTER: Total length of the items fetched: 1296
+
+HEAD_CLUSTER: Processing loaded articles...
+HEAD_CLUSTER: Finished processing loaded articles, passing it to TFIDF_KMEANS 
+
+TFIDF_KMEANS: Extracting features from the dataset by HEAD_CLUSTER
+TFIDF_KMEANS: Extraction done in 0.334273s
+  -- n_samples: 916, n_features: 30000
+TFIDF_KMEANS: LSA Dimension Reduction done in 0.108509s
+TFIDF_KMEANS: Explained variance of the SVD step: 0.02693350096074379
+
+TFIDF_KMEANS: Finding the best n_clusters value by running MinibatchKmeans...
+  -- Finding the best n_clusters - Clustering sparse data with 2
+  -- Silhouette Coefficient: 0.558340
+
+  -- Finding the best n_clusters - Clustering sparse data with 3
+  -- Silhouette Coefficient: 0.576718
+
+  -- Finding the best n_clusters - Clustering sparse data with 4
+  -- Silhouette Coefficient: 0.554991
+
+  -- Finding the best n_clusters - Clustering sparse data with 5
+  -- Silhouette Coefficient: 0.587770
+
+  -- Finding the best n_clusters - Clustering sparse data with 6
+  -- Silhouette Coefficient: 0.556396
+
+  -- Finding the best n_clusters - Clustering sparse data with 7
+  -- Silhouette Coefficient: 0.571164
+
+  -- Finding the best n_clusters - Clustering sparse data with 8
+  -- Silhouette Coefficient: 0.555129
+
+  -- Finding the best n_clusters - Clustering sparse data with 9
+  -- Silhouette Coefficient: 0.549376
+
+  -- Finding the best n_clusters - Clustering sparse data with 10
+  -- Silhouette Coefficient: 0.551180
+
+  -- Finding the best n_clusters - Clustering sparse data with 11
+  -- Silhouette Coefficient: 0.560226
+
+  -- Finding the best n_clusters - Clustering sparse data with 12
+  -- Silhouette Coefficient: 0.550839
+
+  -- Finding the best n_clusters - Clustering sparse data with 13
+  -- Silhouette Coefficient: 0.573107
+
+  -- Finding the best n_clusters - Clustering sparse data with 14
+  -- Silhouette Coefficient: 0.543773
+
+TFIDF_KMEANS: Found optimal n_clusters: 5
+TFIDF_KMEANS: Clustering sparse data with MiniBatchKMeans(batch_size=100, compute_labels=True, init='k-means++',
+        init_size=None, max_iter=1000, max_no_improvement=10, n_clusters=5,
+        n_init=3, random_state=None, reassignment_ratio=0.01, tol=0.0,
+        verbose=False)
+  -- done in 0.030s
+  -- Silhouette Coefficient: 0.588
+
+HEAD_CLUSTER: Extracting named-entities for cluster 0
+HEAD_CLUSTER: Extracting named-entities for cluster 1
+HEAD_CLUSTER: Extracting named-entities for cluster 2
+HEAD_CLUSTER: Extracting named-entities for cluster 3
+HEAD_CLUSTER: Extracting named-entities for cluster 4
+HEAD_CLUSTER: Finished initial processing
+HEAD_CLUSTER: Saved into json file in ./processes/daily/store/
+
+
+CLUSTER_POSTPROC: Initiated, total 5 cluster(s) for postprocessing 
+
+  -* CLUSTER_POSTPROC: Total: [262], Month: ['2019-01'], Query Result: 30
+  -- CLUSTER_POSTPROC: Extracting features from the dataset /lda
+  -- CLUSTER_POSTPROC: Detect peaks with minimum height and distance filters.
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-29-22, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-29-23, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-00, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-02, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-07, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-10, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-15, 3 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby total: [1, 1, 2, 1, 1, 1, 3]
+  -- CLUSTER_POSTPROC: peak time_filterby detection result: [] 
+
+  -- CLUSTER_POSTPROC: Final packaging
+  -* CLUSTER_POSTPROC: Postprocessing finished for the cluster: TFIDF ['Trump', 'Schultz', 'Democrats', 'Howard'] / LDA [['howard', 'schultz', 'painfully'], ['promise', 'ceo', 'president'], ['schultz', 'howard', 'system']] 
+
+
+  -* CLUSTER_POSTPROC: Total: [328], Month: ['2019-01'], Query Result: 30
+  -- CLUSTER_POSTPROC: Extracting features from the dataset /lda
+  -- CLUSTER_POSTPROC: Detect peaks with minimum height and distance filters.
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-00, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-01, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-07, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-09, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-10, 3 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-15, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-18, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby total: [1, 2, 1, 1, 3, 1, 1]
+  -- CLUSTER_POSTPROC: peak time_filterby detection result: [] 
+
+  -- CLUSTER_POSTPROC: Final packaging
+  -* CLUSTER_POSTPROC: Postprocessing finished for the cluster: TFIDF ['New', 'Bowl', 'Super', 'police', 'getting'] / LDA [['bowl', 'super', 'nfl'], ['man', 'perfect', 'comes'], ['super', 'bowl', 'maroon']] 
+
+
+  -* CLUSTER_POSTPROC: Total: [22], Month: ['2019-01'], Query Result: 15
+  -- CLUSTER_POSTPROC: Extracting features from the dataset /lda
+  -- CLUSTER_POSTPROC: Detect peaks with minimum height and distance filters.
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-29-23, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-00, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-01, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-02, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-06, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-12, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-14, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-16, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-18, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby total: [2, 1, 1, 1, 1, 1, 1, 1, 1]
+  -- CLUSTER_POSTPROC: peak time_filterby detection result: [] 
+
+  -- CLUSTER_POSTPROC: Final packaging
+  -* CLUSTER_POSTPROC: Postprocessing finished for the cluster: TFIDF ['Bowl', 'Patriots', 'Super', 'Brady', 'Goodell'] / LDA [['beyond', 'bowl', 'super'], ['goodell', 'roger', 'championship'], ['super', 'bowl', 'patriots']] 
+
+
+  -* CLUSTER_POSTPROC: Total: [221], Month: ['2019-01'], Query Result: 30
+  -- CLUSTER_POSTPROC: Extracting features from the dataset /lda
+  -- CLUSTER_POSTPROC: Detect peaks with minimum height and distance filters.
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-29-23, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-07, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-08, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-09, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-12, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-14, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-16, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-18, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-20, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby total: [1, 1, 1, 1, 1, 2, 1, 1, 1]
+  -- CLUSTER_POSTPROC: peak time_filterby detection result: [] 
+
+  -- CLUSTER_POSTPROC: Final packaging
+  -* CLUSTER_POSTPROC: Postprocessing finished for the cluster: TFIDF ['Trump', 'shutdown', 'House', 'border', 'Dem'] / LDA [['house', 'negotiations', 'shutdown'], ['lawmakers', 'border', 'trump'], ['dem', 'trump', 'god']] 
+
+
+  -* CLUSTER_POSTPROC: Total: [83], Month: ['2019-01'], Query Result: 30
+  -- CLUSTER_POSTPROC: Extracting features from the dataset /lda
+  -- CLUSTER_POSTPROC: Detect peaks with minimum height and distance filters.
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-29-22, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-03, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-07, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-08, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-09, 2 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-14, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-17, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby 2019-01-30-19, 1 article(s)
+  -- CLUSTER_POSTPROC: peak time_filterby total: [1, 1, 1, 2, 2, 1, 1, 1]
+  -- CLUSTER_POSTPROC: peak time_filterby detection result: [] 
+
+  -- CLUSTER_POSTPROC: Final packaging
+  -* CLUSTER_POSTPROC: Postprocessing finished for the cluster: TFIDF ['cold', 'Midwest', 'vortex', 'polar', 'weather'] / LDA [['polar', 'vortex', 'midwest'], ['cold', 'polar', 'vortex'], ['midwest', 'vortex', 'polar']] 
+
+
+CLUSTER_POSTPROC: Saved data into json file in ../data_publish_ready/.

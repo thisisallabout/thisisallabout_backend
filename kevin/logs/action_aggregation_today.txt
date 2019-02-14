@@ -1,0 +1,63 @@
+{'target': 'today'} today
+MASTER AGGREGATE UNIT: Initiating aggregator unit...
+MASTER AGGREGATE UNIT: Setting up MongoClient kevin@main
+[{'_id': ObjectId('5c61d96d421aa9402c26e8d2'), 'twitterid': 1095054634056585217, 'title': 'The new rules of political design', 'url': 'https://www.cnn.com/2019/02/09/politics/the-new-rules-of-political-design/index.html?utm_medium=social&utm_source=twCNNp&utm_content=2019-02-11T20%3A19%3A03&utm_term=image', 'origin': 'CNN Politics', 'ts': 1549916344, 'text': 'washington cnn emerging design trends among initial campaign logos use words symbols embrace color outside traditional red white blue gone patriotic single letter presidential logos popularized past decade juli n castro example kicked campaign home city san antonio logo emphasized accent first name rising like airline tail mark literally breaking outside box sen kirsten gillibrand whose past senate campaigns used blues teals opted frame logo pink color typically associated politics activism gay rights movement pussyhats spiritual author marrianne williamson also used pink julian castro former u department housing urban development hud secretary san antonio mayor announces candidacy president plaza guadalupe january san antonio texas rep tulsi gabbard one two millennial veteran candidates race rising sun inside name log south bend indiana mayor pete buttigieg used logo star recalls john mccain military inspired logo crowded race without definitive early frontrunner logos far seem directed building name id color schemes optimized stand campaign signs sides roads des moines manchester also look like response changing political design trends today presidential branding common logos candidates like alexandria ocasio cortez beto rourke stacey abrams barack obama hillary clinton midterms democratic candidates used rainbow worth color many candidates chose name logos opposed letters symbols interestingly two candidates use single letter logos earliest announce former rep john delaney nonprofit founder andrew yang use logos respectively announced campaigns midterms actually think lesson may makes good logo trump real logo word trump slogan make america great michael bierut partner pentagram firm led design clinton h logo told cover line think anything else come reductive message people could interpret personal dog whistle wanted kind america wanted restored insufficient current america needed undone said indeed maga hats became type logo trump campaign one followed white house attendee holds placard senator kamala harris democrat california pictured speaks event launch presidential campaign oakland california u sunday jan sen kamala harris included slogan logo kamala harris people references time prosecutor doubling populist message people holding name logo designed creative agency wide eye inspired branding shirley chisholm first black woman run major party nomination sen cory booker website currently features alternating version red white blue black logo toggles cory rise users move cursor written conductor font co designed tobias frere jones also designed obama font gotham far cry logos early candidate name typically set dark blue used along representations flags eagles george w bush campaign though sometimes broke w stand alone symbol way visually represent candidate fewest letters possible could used special branding like w stands women campaign signs women cheer us president george w bush arrives deliver remarks september focus women issues event charlotte north carolina chicago designer sol sender team took idea developed sophisticated single letter logo obama managed work political design trope american flag red white stripes reimagined something new corporate style logo politics nike swoosh logo impact could seen four years later mitt romney ditched full name eagle logo red white blue letter r candidates like rick perry bobby jindal clinton used single letter logos sender early design exhibits timidity doubt courageous people think putting boldest look forward terms graphic identity brands said wondered intentional noting many examples saw opponents using logo criticize obama think risky put obviously trump going ridicule every single one sender said going use everything ridicule brands graphic identities ridiculed case point sen elizabeth warren opponents tried define imagined parody campaign logo warren identity created daily wire tweeted trump january using wavy red blue lines bernie sanders logo replaced bernie warren added fraction underneath th mock warren dna test results trump pocahontas slur fake logo form warren actual logo last name caps underlined set suffragette colors purple white green liberty green campaign store notes specific simple sober lot harder sanders logo mock repurpose trump found receiving end design jokes indiana gov mike pence added ticket campaign briefly tried dual letter logo p interlocked part stylized flag design mocked widely online used although popped unofficial campaign paraphernalia merchandise remainder campaign trump stuck name slogan logo possible design could continue evolve change clinton h adapted different holidays occasions bierut predicted candidates need develop concise marks fit small spaces like social media profile photos campaign stores like warren already show red white blue merch hinting branding variations color even trump said last year red maga hat could go green reelection campaign represent cash campaign logos important candidates positions big issues voting records signal something important candidates would like perceived represented bumper stickers yard signs shirts months come image deck lecterns speak campaign right speak behind lectern seal president united states branding candidates saying something campaign vision america diverse primary field ever seen major party politics democrats representing new generation political design', 'image': 'https://cdn.cnn.com/cnnnext/dam/assets/190208195906-2020-dem-logos-coverline-super-tease.jpg', 'authors': ['Hunter Schwarz', "Cnn'S Cover Line"]}]
+MASTER AGGREGATE UNIT: Found latest twitter id from the collection: 1095054634056585217 usa-society1
+AGGREGATE_TWITTER: Start aggregator in None mode
+AGGREGATE_TWITTER: Start parsing articles... This might take a while: 
+AGGREGATE_TWITTER: Authenticating with twitter...
+AGGREGATE_TWITTER: Start retrieving twitter timeline: since_id 1095054634056585217
+184
+AGGREGATE_TWITTER: Index 0/184, parsed title: Prosecutors make secret filing in case linked to Mueller
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 1/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450969469534208
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 2/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450850036801538
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 3/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450716381110274
+AGGREGATE_TWITTER: Index 4/184, parsed title: McCarthy blames Republican loss of House majority on GOP health care bill
+AGGREGATE_TWITTER: Index 5/184, parsed title: Are you a robot?
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 6/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450494301073408
+AGGREGATE_TWITTER: Index 7/184, parsed title: Miami-bound for a fling before the ring? Here’s what’s new in the ‘Vegas of the East’
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 8/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450223533613057
+AGGREGATE_TWITTER: Index 9/184, parsed title: Superstar freshman Dems replace Pelosi as GOP targets
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 10/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450012803309568
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 11/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095450006105006081
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 12/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095449484337840128
+AGGREGATE_TWITTER: Index 13/184, parsed title: Want to be a butler? How about a dock master? Encore casino has some interesting job postings
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 14/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095449416675311618
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 15/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095449411621130241
+AGGREGATE_TWITTER: Index 16/184, parsed title: Fidelity would create large waterfront space at revamped World Trade Center in Seaport
+AGGREGATE_TWITTER: Index 17/184, parsed title: Are you a robot?
+AGGREGATE_TWITTER: Index 18/184, parsed title: Colorado touts $6 billion in marijuana sales in five years since opening nation’s first retail shops
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 19/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095448733972602881
+AGGREGATE_TWITTER: Index 20/184, parsed title: Cruz urges Senate to pass bill to make 'El Chapo,' drug lords pay for border wall
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 21/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095448731984580608
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 22/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095448713227657216
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 23/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095448712447434753
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 24/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095448193150668801
+AGGREGATE_TWITTER: Index 25/184, parsed title: More teens defy parents, get vaccinated amid measles outbreak
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 26/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095447963453845504
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 27/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095447958106050566
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 28/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095447719202775041
+AGGREGATE_TWITTER: Index 29/184, parsed title: Juul and pot are hazardous to Altria’s bond health
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 30/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095447470463729670
+AGGREGATE_TWITTER: Skipped parsing: the url contains twitter.com
+AGGREGATE_TWITTER: Index 31/184, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/1095447460569178112
+AGGREGATE_TWITTER: Index 32/184, parsed title: After El Chapo conviction, Sinaloa drug cartel carries on

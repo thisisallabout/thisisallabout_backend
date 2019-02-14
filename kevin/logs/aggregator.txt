@@ -1,0 +1,14 @@
+Initiating aggregator unit...
+Setting up MongoClient kevin@main
+[{'_id': ObjectId('5a5ca4e6421aa97e54b8c221'), 'twitterid': 952886867183259649, 'title': "Trump: 'I am not a racist'", 'url': '', 'origin': 'CNN', 'ts': 1516020907, 'text': [], 'image': '', 'authors': []}]
+Found latest twitter id from the collection: 952886867183259649 usa-society1
+Start aggregator in None mode
+Start parsing articles... This might take a while: 
+Authenticating with twitter...
+Start retrieving twitter timeline: since_id 952886867183259649
+[Status(ID=952887109202972673, ScreenName=thehill, Created=Mon Jan 15 12:56:05 +0000 2018, Text='Dem senator stops short of calling Trump a racist: "I was raised not to call people a racist"… https://t.co/6HC4etG2nD')]
+1
+Skipped parsing: the url contains twitter.com
+Index 0/1, Skipped parsing: the url contains twitter.com https://twitter.com/i/web/status/952887109202972673
+Finished parsing all articles in timeline: 
+Empty result returned from aggregator; finished.

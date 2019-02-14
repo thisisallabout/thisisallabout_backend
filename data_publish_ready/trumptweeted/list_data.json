@@ -1,0 +1,87 @@
+[
+    {
+        "month": "2017-01",
+        "header": "Jan 2017",
+        "keytag": ["Inauguration", "MAGA"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Inaugural_parade_Donald_Trump_and_Melania_Trump_01-20-17.jpg/2560px-Inaugural_parade_Donald_Trump_and_Melania_Trump_01-20-17.jpg",
+        "image-copyright": "U.S. Army photo by Pvt. Gabriel Silva"
+    },
+    {
+        "month": "2017-02",
+        "header": "Feb 2017",
+        "keytag": ["Cabinets", "TravelBan"],
+        "image": "https://www.whitehouse.gov/wp-content/uploads/2017/11/camp-david-mtg-1.jpg",
+        "image-copyright": "The White House"
+    },
+    {
+        "month": "2017-03",
+        "header": "Mar 2017",
+        "keytag": ["Healthcare", "Jobs"]
+    },
+    {
+        "month": "2017-04",
+        "header": "Apr 2017",
+        "keytag": ["TaxReform", "Healthcare", "FoxNews"]
+    },
+    {
+        "month": "2017-05",
+        "header": "May 2017",
+        "keytag": ["Russia", "Fakenews"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/White-House-Fires-James-Comey.pdf/page1-1275px-White-House-Fires-James-Comey.pdf.jpg",
+        "image-copyright": "Donald Trump, Rod Rosenstein, Jefferson Sessions (The White House/PDF Image from Wikimedia Commons)"
+    },
+    {
+        "month": "2017-06",
+        "header": "Jun 2017",
+        "keytag": ["SanctuaryCities", "AmericaFirst", "Russia"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Trump_signing_order_January_27.jpg",
+        "image-copyright": "Staff of the President of the United States, Donald Trump"
+    },
+    {
+        "month": "2017-07",
+        "header": "Jul 2017",
+        "keytag": ["Veterans", "Senators", "Healthcare"],
+        "image": "https://media.defense.gov/2017/Jul/27/2001783994/888/591/0/170725-F-UU934-2048.JPG",
+        "image-copyright": "U.S. Air Force photo/Senior Airman Jeffrey Grossi"
+    },
+    {
+        "month": "2017-08",
+        "header": "Aug 2017",
+        "keytag": ["HurricaneHarvey", "Fakenews", "NorthKorea"],
+        "image": "https://media.defense.gov/2017/Aug/30/2001800542/1088/820/0/170829-G-ZX620-872A.JPG",
+        "image-copyright": "Petty Officer 1st Class Patrick Kelley"
+    },
+    {
+        "month": "2017-09",
+        "header": "Sep 2017",
+        "keytag": ["AnthemKneeling", "UNSpeech", "PuertoRico"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/San_Francisco_49ers_National_Anthem_Kneeling_%2837721041581%29.jpg/1600px-San_Francisco_49ers_National_Anthem_Kneeling_%2837721041581%29.jpg",
+        "image-copyright": "Keith Allison from Hanover, MD, USA"
+    },
+    {
+        "month": "2017-10",
+        "header": "Oct 2017",
+        "keytag": ["TaxCuts", "PuertoRico", "LasVegas"]
+    },
+    {
+        "month": "2017-11",
+        "header": "Nov 2017",
+        "keytag": ["APEC2017", "TaxCuts", "EastAsia"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Vladimir_Putin_%26_Donald_Trump_at_APEC_Summit_in_Da_Nang%2C_Vietnam%2C_10_November_2017.jpg/1600px-Vladimir_Putin_%26_Donald_Trump_at_APEC_Summit_in_Da_Nang%2C_Vietnam%2C_10_November_2017.jpg",
+        "image-copyright": "Kremlin.ru"
+    },
+    {
+        "month": "2017-12",
+        "header": "Dec 2017",
+        "keytag": ["TaxCuts", "AlabamaSenate", "FakeNews"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Trump%2C_Pence%2C_Ryan%2C_McConnell_celebrate_tax_cut_passage.jpg/1599px-Trump%2C_Pence%2C_Ryan%2C_McConnell_celebrate_tax_cut_passage.jpg",
+        "image-copyright": "The White House from Washington, DC"
+    },
+    {
+        "month": "2018-01",
+        "header": "Jan 2018",
+        "keytag": ["Budget", "DACA", "BorderWall"],
+        "image": "https://www.whitehouse.gov/wp-content/uploads/2018/01/Photo-2-from-Working-Session-at-the-Republican-Congressional-Leadership-Retreat.jpg",
+        "image-copyright": "Official White House Photo by Joyce N. Boghosian"
+    }
+]
