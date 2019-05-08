@@ -91,4 +91,4 @@ You may set up your own twitter list and connect it to aggregator module via Twi
 
 ## Maintainer
 
-Todd Oh (fieldofgreentea@gmail.com) [twitter](https://twitter.com/_toddoh)
+Todd Oh (toddstonefieldoh@gmail.com) [twitter](https://twitter.com/_toddoh)
