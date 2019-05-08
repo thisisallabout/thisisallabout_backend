@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from monthly.tfidf_kmeans import vectorize_cluster
+from processes.monthly.tfidf_kmeans import vectorize_cluster
 from datetime import datetime, timedelta
 import numpy as np
 import nltk
@@ -14,7 +14,7 @@ import pandas as pd
 
 print('MASTER MONCLUSTER UNIT: Initiating cluster unit...')
 print('MASTER MONCLUSTER UNIT: Setting up MongoClient kevin@main')
-client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
 db = client['main']
 
 theme_blacklists = ['periscope', 'pbs', 'newshour', 'npr', 'watch']
@@ -62,7 +62,7 @@ def stem_words(words_list):
     return [stemmer.stem(word) for word in words_list]
 
 
-def sort_articles_month(item, type=None, mode=None):
+def sort_articles_month_bi(item, type=None, mode=None):
     collection = db['aggregator_' + item]
 
     print('MASTER MONCLUSTER UNIT: Start loading articles from database: {0} mode'.format(mode))
@@ -87,22 +87,32 @@ def sort_articles_month(item, type=None, mode=None):
     if len(cursor):
         print('MASTER MONCLUSTER UNIT: Processing loaded articles...')
         parsed_articlecluster_packed = []
-        article_list = []
+
 
         us_eastern_time = pytz.timezone('US/Eastern')
-        for dataitem in cursor:
-            timeformat = '%Y-%m'
-            del dataitem['_id']
-            dataitem['date_month'] = datetime.fromtimestamp(dataitem['ts'], us_eastern_time).strftime(timeformat)
-            article_list.append(dataitem)
+        df = pd.DataFrame(cursor)
+        df['date'] = pd.to_datetime(df['ts'],unit='s')
+        df['date_local'] = df.apply(lambda x: x['date'].tz_localize('UTC').tz_convert('America/New_York'), axis=1)
+        grouped_df = df.groupby(pd.Grouper(key='date_local', freq='60D'))
+        # print(grouped_df.apply(lambda x: x['date_local'].set_index()))
 
-        sorted_articles = sorted(article_list, key=itemgetter('date_month'))
-        for key, group in itertools.groupby(sorted_articles, key=lambda x: x['date_month']):
+        for name, group in grouped_df:
+            article_list = []
+            print('ID: ' + str(name))
+            tsobj = group.ts.tolist()
+            for index, tsitem in enumerate(tsobj):
+                article_item = {}
+                article_item['twitterid'] = group.twitterid.tolist()[index]
+                article_item['ts'] = tsitem
+                article_item['title'] = group.title.tolist()[index]
+                article_item['origin'] = group.origin.tolist()[index]
+                article_list.append(article_item)
+
             group_articles = {}
-            group_articles['month'] = key
-            group_articles['articles'] = list(group)
+            group_articles['month'] = str(name)
+            group_articles['articles'] = article_list
             parsed_articlecluster_packed.append(group_articles)
-            print('MASTER MONCLUSTER UNIT: total {0} articles in month {1}...'.format(key, len(list(group))))
+            print('MASTER MONCLUSTER UNIT: total {0} articles in month {1}...'.format(str(name), len(article_list)))
 
 
         # print('Raw article data reference: ')
@@ -110,7 +120,7 @@ def sort_articles_month(item, type=None, mode=None):
 
         print('MASTER MONCLUSTER UNIT: finished processing')
 
-        tfidfpath = './monthly/dataset/' + type + '/'
+        tfidfpath = './processes/monthly/dataset/' + type + '/'
         os.makedirs(tfidfpath, exist_ok=True)
         with open(tfidfpath + '/result.json', 'w') as outfile:
             json.dump(parsed_articlecluster_packed, outfile, indent=4, sort_keys=True)
@@ -121,6 +131,17 @@ def sort_articles_month(item, type=None, mode=None):
         parsed_articlecluster_final = []
         for monthlyitem in parsed_articlecluster_packed:
             parsed_article_title = []
+            parsed_article_text = []
+
+            def contains(small, big):
+                for i in range(len(big) - len(small) + 1):
+                    for j in range(len(small)):
+                        if big[i + j] != small[j]:
+                            break
+                    else:
+                        return i, i + len(small)
+                return False
+
 
             for article in monthlyitem['articles']:
                 if isinstance(article['title'], str):
@@ -129,11 +150,11 @@ def sort_articles_month(item, type=None, mode=None):
             parsed_article_dict = parsed_article_title
             print('MASTER MONCLUSTER UNIT: Finished processing loaded articles')
 
-            datapath = './monthly/cluster/' + type + '/'
+            datapath = './processes/monthly/cluster/' + type + '/'
             os.makedirs(datapath, exist_ok=True)
 
             if type == 'trumpsaid':
-                parsed_data = vectorize_cluster(parsed_article_dict, 2, 15, datapath, 'titleonly', monthlyitem['month'])
+                parsed_data = vectorize_cluster(parsed_article_dict, 1, 25, datapath, 'titleonly', monthlyitem['month'])
 
             # print(parsed_data[0])
             parsed_data_themes = []
@@ -145,6 +166,7 @@ def sort_articles_month(item, type=None, mode=None):
 
                 parsed_data_themes.append(tokens)
 
+            parsed_articlecluster_flattened = [val for sublist in parsed_data[1].values() for val in sublist]
             parsed_articlecluster = []
 
             for index, item in enumerate(parsed_data_themes):
@@ -168,7 +190,7 @@ def sort_articles_month(item, type=None, mode=None):
                         if len(token) > 1:
                             theme_data.append(token)
 
-                # theme_data_l = [x.lower() for x in theme_data]
+                theme_data_l = [x.lower() for x in theme_data]
                 # if any(x in theme_data_l for x in theme_blacklists):
                 # print('Clustring unit: there is one or more blacklisted words in themes')
                 # else:
@@ -198,14 +220,16 @@ def sort_articles_month(item, type=None, mode=None):
                 with open(datapath + '/' + monthlyitem['month'] + '.json', 'w') as outfile:
                     json.dump(parsed_articlecluster, outfile, indent=4, sort_keys=True)
 
-                print('MASTER MONCLUSTER UNIT: saved into json file, now process it on web console.')
+                print('MASTER MONCLUSTER UNIT: saved into json file.')
 
-        parsed_articlecluster_final.append(parsed_articlecluster)
+            parsed_articlecluster_final.append(parsed_articlecluster)
+
         print(parsed_articlecluster_final)
 
         # print('Raw article data reference: ')
         # print(parsed_articlecluster)
+
+
     else:
         print('MASTER MONCLUSTER UNIT: The collection is empty, unable to process.')
-
 

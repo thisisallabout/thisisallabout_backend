@@ -38,8 +38,8 @@ python-crontab==2.2.8
 python-dateutil==2.7.2
 python-twitter==3.4.1
 pytz==2018.3
-PyYAML==3.13
-requests==2.18.4
+PyYAML>=4.2b1
+requests>=2.20.0
 requests-file==1.4.3
 requests-oauthlib==1.0.0
 s3transfer==0.1.13
@@ -48,6 +48,6 @@ scipy==1.0.1
 six==1.12.0
 smart-open==1.7.1
 tldextract==2.2.0
-urllib3==1.22
+urllib3>=1.24.2
 Whoosh==2.7.4
 wrapt==1.10.11

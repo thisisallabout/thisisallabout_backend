@@ -1,5 +1,4 @@
-from interpret.unit_interpreter import interpret
-from interpret.unit_interpreter_today import interpret_today
+from processes.monthly.cluster_postproc import interpret
 import sys
 import argparse
 
@@ -17,8 +16,6 @@ print(vars(args), vars(args)['target'])
 def interpreter_run(type):
     if type == '':
         print('Interpreter: No type provided, finished with none.')
-    elif type == 'today':
-        interpret_today(type)
     else:
         interpret(type)
 

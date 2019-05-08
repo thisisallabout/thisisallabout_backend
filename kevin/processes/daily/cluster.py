@@ -57,7 +57,7 @@ def cluster_articles(item, type=None, mode=None):
     print('* PROCESS Initiated /type=daily /init=cluster')
     print('HEAD_CLUSTER: Setting up MongoClient kevin@main \n')
 
-    client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+    client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
     db = client['main']
     collection = db['aggregator_' + item]
 

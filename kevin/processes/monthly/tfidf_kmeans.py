@@ -7,7 +7,9 @@ from nltk.corpus import stopwords
 import re
 import os
 from time import time
+import statistics
 import numpy as np
+from scipy.spatial.distance import cdist
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -15,8 +17,10 @@ from sklearn.pipeline import make_pipeline
 from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import Normalizer
 from sklearn import metrics
+from scipy.sparse import csr_matrix
 
 from sklearn.cluster import KMeans, MiniBatchKMeans
+from sklearn.metrics import silhouette_samples, silhouette_score
 from nltk.stem.porter import PorterStemmer
 import pandas as pd
 from scipy.sparse import csr_matrix
@@ -40,8 +44,9 @@ def vectorize_cluster(dataset, rangeMin=2, rangeMax=21, tfidfpath='./dataset/', 
 
     print('TFIDF_KMEANS: Extracting features from the dataset')
     t0 = time()
-    n_features = 50000
-    hasher = HashingVectorizer(n_features=n_features, stop_words=cachedStopWords, non_negative=True, norm=None, binary=False)
+    n_features = 30000
+
+    hasher = HashingVectorizer(n_features=n_features, stop_words=cachedStopWords, norm=None, binary=False)
     vectorizer = make_pipeline(hasher, TfidfTransformer())
 
     if type == 'titleonly':
@@ -50,50 +55,59 @@ def vectorize_cluster(dataset, rangeMin=2, rangeMax=21, tfidfpath='./dataset/', 
         X = vectorizer.fit_transform(dataset.values())
 
     print("TFIDF_KMEANS: Extraction done in %fs" % (time() - t0))
-    print(" n_samples: %d, n_features: %d" % X.shape)
-    print()
+    print("  -- n_samples: %d, n_features: %d" % X.shape)
 
-    print("TFIDF_KMEANS: LSA Dimension reduction")
-    n_components = 100
+    n_components = 2
     t0 = time()
     svd = TruncatedSVD(n_components)
     normalizer = Normalizer(copy=False)
     lsa = make_pipeline(svd, normalizer)
 
     X = lsa.fit_transform(X)
-    print("TFIDF_KMEANS: Reduction done in %fs" % (time() - t0))
+    print("TFIDF_KMEANS: LSA Dimension Reduction done in %fs" % (time() - t0))
 
     explained_variance = svd.explained_variance_ratio_.sum()
-    print("TFIDF_KMEANS: Explained variance of the SVD step: {}%".format(int(explained_variance * 100)))
-    print()
+    print("TFIDF_KMEANS: Explained variance of the SVD step: %s" % explained_variance)
 
     verbose = False
-    print("TFIDF_KMEANS: Finding the best n_clusters value by running MinibatchKmeans...")
+    print("\nTFIDF_KMEANS: Finding the best n_clusters value by running MinibatchKmeans...")
     range_n_clusters = range(rangeMin, rangeMax)
     range_n_clusters_km = []
+    intertia_km = []
+    # res_km = list()
     for range_k in range_n_clusters:
-        km = MiniBatchKMeans(n_clusters=range_k, init='k-means++', n_init=1, init_size=1000, batch_size=1000, verbose=verbose)
-
-        print(" Finding the best n_clusters - Clustering sparse data with %s" % km)
-        t0 = time()
+        km = MiniBatchKMeans(n_clusters=range_k, init='k-means++', max_iter=1000, verbose=False)
+        print("  -- Finding the best n_clusters - Clustering sparse data with %s" % range_k)
         km.fit(X)
-        print(" Finding the best n_clusters - sparse data done in %0.3fs" % (time() - t0))
-        print(' Finding the best n_clusters: {0}'.format(range_k))
-        print(" Silhouette Coefficient: %0.3f" % metrics.silhouette_score(X, km.labels_, sample_size=1000))
-        range_n_clusters_km.append(metrics.silhouette_score(X, km.labels_, sample_size=1000))
+        intertia_km.append(km.inertia_)
+        # res_km.append(np.average(np.min(cdist(X, km.cluster_centers_, 'euclidean'), axis=1)))
+
+        silhouette_avg = silhouette_score(X, km.labels_)
+        print("  -- Silhouette Coefficient: %0f" % silhouette_avg)
+        if silhouette_avg <= 1:
+            range_n_clusters_km.append(silhouette_avg)
+
         print()
 
-    range_n_clusters_km_index_max = max(range(len(range_n_clusters_km)), key=range_n_clusters_km.__getitem__)
-    km_optimal = range_n_clusters[range_n_clusters_km_index_max]
+    plot_elbow = plt.figure(figsize=(15, 5))
+    plt.plot(range_n_clusters, intertia_km)
+    plt.grid(True)
+    plt.title('Elbow curve')
+    plt.savefig('./processes/monthly/store/elbow.png')
+
+    from kneed import KneeLocator
+    kn = KneeLocator(range_n_clusters, intertia_km, curve='convex', direction='decreasing')
+    # range_n_clusters_km_index_max = max(range(len(range_n_clusters_km)), key=range_n_clusters_km.__getitem__)
+    km_optimal = kn.knee # range_n_clusters[range_n_clusters_km_index_max]
     print('TFIDF_KMEANS: Found optimal n_clusters: {0}'.format(km_optimal))
 
-    km_final = MiniBatchKMeans(n_clusters=km_optimal, init='k-means++', n_init=1, init_size=1000, batch_size=1000, verbose=verbose)
-
+    km_final = MiniBatchKMeans(n_clusters=km_optimal, init='k-means++', max_iter=1000, verbose=verbose)
     print("TFIDF_KMEANS: Clustering sparse data with %s" % km_final)
     t0 = time()
     km_final.fit(X)
-    print(" done in %0.3fs" % (time() - t0))
-    print(" Silhouette Coefficient: %0.3f" % metrics.silhouette_score(X, km_final.labels_, sample_size=1000))
+    # km_final_t = time() - t0
+    print("  -- done in %0.3fs" % (time() - t0))
+    print("  -- Silhouette Coefficient: %0.3f" % metrics.silhouette_score(X, km_final.labels_))
     print()
 
     cluster_dict_store = {}

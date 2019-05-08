@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from cluster.tfidf_kmeans import vectorize_cluster
+from processes.manual.tfidf_kmeans import vectorize_cluster
 from datetime import datetime, timedelta
 import numpy as np
 import nltk
@@ -9,11 +9,7 @@ import itertools
 from operator import itemgetter
 import pytz
 import json
-
-print('Initiating cluster unit...')
-print('MASTER CLUSTER UNIT: Setting up MongoClient kevin@main')
-client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
-db = client['main']
+import os
 
 theme_blacklists = ['periscope', 'pbs', 'newshour', 'npr', 'watch']
 
@@ -58,69 +54,40 @@ def stem_words(words_list):
 
 
 def cluster_articles(item, type=None, mode=None):
+    print('* PROCESS Initiated /type=daily /init=cluster')
+    print('HEAD_CLUSTER: Setting up MongoClient kevin@main \n')
+
+    client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
+    db = client['main']
     collection = db['aggregator_' + item]
 
-    print('MASTER CLUSTER UNIT: Start loading articles from database: {0} mode'.format(mode))
-    if mode is None:
-        last_hour_date_time = datetime.now() - timedelta(hours=24)
-        unix_time = last_hour_date_time.strftime("%s")
-        print(unix_time)
+    datastore_path = './processes/manual/store/'
 
-        cursor = list(collection.find({"ts": {"$gt": int(unix_time) }}).sort([('_id', 1)]))
-    elif mode == 90000009:
-        # cursor = list(collection.find({}).sort([('_id', 1)]).limit(3000))
-        cursor = list(collection.find({}).sort([('_id', 1)]))
-        print(len(cursor))
-    elif mode == 90000001:
-        # cursor = list(collection.find({}).sort([('_id', 1)]).limit(3000))
-        cursor = list(collection.find({"ts": {"$gt": int(1489554000), "$lt": int(1521089999)}}).sort([('_id', 1)]))
-        print(len(cursor))
-    else:
-        last_hour_date_time = datetime.now() - timedelta(hours=mode)
-        unix_time = last_hour_date_time.strftime("%s")
-        print(unix_time)
+    print('HEAD_CLUSTER: Start loading articles from database: {0} mode'.format(mode))
+    last_hour_date_time = datetime.now() - timedelta(hours=24)
+    unix_time = last_hour_date_time.strftime("%s")
+    print('HEAD_CLUSTER: Timestamp of the last item: {0}'.format(unix_time))
 
-        cursor = list(collection.find({"ts": {"$gt": int(unix_time)}}).sort([('_id', 1)]))
-        print(len(cursor))
+    cursor = list(collection.find({"ts": {"$gt": int(unix_time)}}).sort([('_id', 1)]))
+    print('HEAD_CLUSTER: Total length of the items fetched: {0}'.format(len(cursor)))
 
     if len(cursor):
-        print('MASTER CLUSTER UNIT: Processing loaded articles...')
+        print('\nHEAD_CLUSTER: Processing loaded articles...')
         parsed_article_title = []
         parsed_article_text = []
 
-        def contains(small, big):
-            for i in range(len(big) - len(small) + 1):
-                for j in range(len(small)):
-                    if big[i + j] != small[j]:
-                        break
-                else:
-                    return i, i + len(small)
-            return False
-
-        if type == 'trumpsaid':
-            for article in cursor:
-                if isinstance(article['title'], str):
+        for article in cursor:
+            if isinstance(article['title'], str):
+                if isinstance(article['text'], str):
                     parsed_article_title.append(article['title'])
-        else:
-            for article in cursor:
-                if isinstance(article['title'], str):
-                    if isinstance(article['text'], str):
-                        parsed_article_title.append(article['title'])
-                        parsed_article_text.append(article['text'])
+                    parsed_article_text.append(article['text'])
 
-        if type == 'trumpsaid':
-            parsed_article_dict = parsed_article_title
-        else:
-            parsed_article_dict = dict(zip(parsed_article_title, parsed_article_text))
-        print('MASTER CLUSTER UNIT: Finished processing loaded articles')
+        parsed_article_dict = dict(zip(parsed_article_title, parsed_article_text))
+        print('HEAD_CLUSTER: Finished processing loaded articles, passing it to TFIDF_KMEANS \n')
 
-        tfidfpath = './dataset/' + type + '/'
-        if type == 'today':
-            parsed_data = vectorize_cluster(parsed_article_dict, 2, 15, tfidfpath, 'today')
-        elif type == 'trumpsaid':
-            parsed_data = vectorize_cluster(parsed_article_dict, 2, 25, tfidfpath, 'trumpsaid')
-        else:
-            parsed_data = vectorize_cluster(parsed_article_dict, 2, 10, tfidfpath)
+        os.makedirs(datastore_path, exist_ok=True)
+        tfidfpath = datastore_path
+        parsed_data = vectorize_cluster(parsed_article_dict, 2, 15, tfidfpath, 'today')
         origin_data_raw = cursor
 
         # print(parsed_data[0])
@@ -160,7 +127,7 @@ def cluster_articles(item, type=None, mode=None):
             #if any(x in theme_data_l for x in theme_blacklists):
                 #print('Clustring unit: there is one or more blacklisted words in themes')
             #else:
-            print("MASTER CLUSTER UNIT: Extracting named-entities")
+            print("HEAD_CLUSTER: Extracting named-entities for cluster {0}".format(index))
             ner_result = list(cluster_ner(' '.join(parsed_data[1][index])))
 
             zip_data['theme'] = theme_data
@@ -168,8 +135,6 @@ def cluster_articles(item, type=None, mode=None):
             zip_data['articles'] = parsed_data[1][index]
 
             parsed_articlecluster.append(zip_data)
-
-        # print(parsed_articlecluster)
 
         parsed_articlecluster_packed = []
         us_eastern_time = pytz.timezone('US/Eastern')
@@ -189,24 +154,10 @@ def cluster_articles(item, type=None, mode=None):
                     if '_id' in filter:
                         filter['_id'] = str(filter['_id'])
 
-                    if type == 'today':
-                        timeformat = '%Y-%m' # mode <= 48
+                    timeformat = '%Y-%m' # mode <= 48
 
-                        filter['time_filter'] = datetime.fromtimestamp(filter['ts'], us_eastern_time).strftime(timeformat)
-                        article_list.append(filter)
-                    else:
-                        timeformat = ''
-                        if mode <= 72:
-                            timeformat = '%Y-%m'
-                        elif mode <= 168:
-                            timeformat = '%Y-%m-%d'
-                        elif mode == 90000009:
-                            timeformat = '%Y-%m'
-                        elif mode == 90000001:
-                            timeformat = '%Y-%m'
-
-                        filter['time_filter'] = datetime.fromtimestamp(filter['ts'], us_eastern_time).strftime(timeformat)
-                        article_list.append(filter)
+                    filter['time_filter'] = datetime.fromtimestamp(filter['ts'], us_eastern_time).strftime(timeformat)
+                    article_list.append(filter)
 
             cluster_data['groups'] = []
             sorted_articles = sorted(article_list, key=itemgetter('time_filter'))
@@ -215,21 +166,17 @@ def cluster_articles(item, type=None, mode=None):
                 group_articles['time_filterby'] = key
                 group_articles['articles'] = list(group)
                 cluster_data['groups'].append(group_articles)
-                print('MASTER CLUSTER UNIT: total {0} articles in month {1}...'.format(key, len(list(group))))
 
             parsed_articlecluster_packed.append(cluster_data)
 
-        # print('Raw article data reference: '), parsed_articlecluster_packed
-
-        print('MASTER CLUSTER UNIT: finished processing')
+        print('HEAD_CLUSTER: Finished initial processing')
         with open(tfidfpath + '/result.json', 'w') as outfile:
             json.dump(parsed_articlecluster_packed, outfile, indent=4, sort_keys=True)
 
-        print('MASTER CLUSTER UNIT: saved into json file.')
+        print('HEAD_CLUSTER: Saved into json file in {0}'.format(datastore_path))
 
-        if type == 'today':
-            from cluster.cluster_postproc import postprocess
-            postprocess(type)
+        from processes.daily.cluster_postproc import postprocess
+        postprocess(type)
     else:
-        print('MASTER CLUSTER UNIT: The collection is empty, unable to process.')
+        print('HEAD_CLUSTER: The collection is empty, unable to process.')
 

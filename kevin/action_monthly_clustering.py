@@ -1,4 +1,5 @@
-from monthly.monthly import sort_articles_month
+from processes.monthly.cluster import sort_articles_month
+from processes.monthly.cluster_bimonthly import sort_articles_month_bi
 import sys
 import argparse
 
@@ -7,6 +8,10 @@ def init_task(type):
         collection_list = ['trumpsaid']
         for item in collection_list:
             sort_articles_month(item, 'trumpsaid', 90000009)
+    elif type == 'trumpsaid_bimonthly':
+        collection_list = ['trumpsaid']
+        for item in collection_list:
+            sort_articles_month_bi(item, 'trumpsaid', 90000009)
 
 
 # 168hr is 1 week

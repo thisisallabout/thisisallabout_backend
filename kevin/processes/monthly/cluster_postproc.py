@@ -1,8 +1,8 @@
 import json
 import numpy as np
 import pprint
-from interpret import detect_peaks
-from interpret.parser_articles import parse_aggregated
+from lib import detect_peaks
+from processes.monthly.tfidf_kmeans import vectorize_cluster
 import nltk
 import os
 from nltk.stem.porter import PorterStemmer
@@ -12,8 +12,8 @@ import whoosh.qparser
 import pytz
 
 def interpret(type):
-    datapath = './monthly/dataset/' + type + '/'
-    interpret_datapath = './monthly/interpret/' + type + '/'
+    datapath = './processes/monthly/dataset/' + type + '/'
+    interpret_datapath = './processes/monthly/postproc/' + type + '/'
     result_file = datapath + 'result.json'
     with open(result_file) as data_file:
         result_data = json.load(data_file)
@@ -68,10 +68,10 @@ def interpret(type):
                 print('@@@@@@@@ ERRRR')
                 continue
             else:
-                if type == 'today' or type == 'trumpsaid':
-                    parsed_data = parse_aggregated(all_documents_dict, 2, 13, interpret_datapath, type)
+                if type == 'trumpsaid':
+                    parsed_data = vectorize_cluster(all_documents_dict, 2, 15, interpret_datapath, 'titleonly')
                 else:
-                    parsed_data = parse_aggregated(all_documents_dict, 2, 13, interpret_datapath)
+                    parsed_data = vectorize_cluster(all_documents_dict, 2, 13, interpret_datapath)
 
             print('+++++++ PARSING')
             parsed_data_themes = []
@@ -131,10 +131,7 @@ def interpret(type):
                 results = searcher.search(query)
 
                 if len(results):
-                    if type == 'today':
-                        article_pick = results[0:4]
-                    else:
-                        article_pick = results[0:8]
+                    article_pick = results[0:8]
                     print(article_pick)
 
                     for a in article_pick:
@@ -173,11 +170,6 @@ def interpret(type):
         all_results.append(result_pick_data)
         print('--------- CLUSTER DONE: {0}'.format(group['theme']))
 
-    if type == 'today':
-        interpret_datapath_today = '../dataset/' + type + '_data.json'
-        with open(interpret_datapath_today, 'w') as f:
-            json.dump(all_results, f, indent=4, sort_keys=True)
-    else:
-        with open(interpret_datapath + 'result.json', 'w') as f:
-            json.dump(all_results, f, indent=4, sort_keys=True)
+    with open(interpret_datapath + 'result.json', 'w') as f:
+        json.dump(all_results, f, indent=4, sort_keys=True)
 

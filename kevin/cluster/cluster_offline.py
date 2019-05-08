@@ -12,7 +12,7 @@ import json
 
 print('Initiating cluster unit...')
 print('MASTER CLUSTER UNIT: Setting up MongoClient kevin@main')
-client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
 db = client['main']
 
 theme_blacklists = ['periscope', 'pbs', 'newshour', 'npr', 'watch']

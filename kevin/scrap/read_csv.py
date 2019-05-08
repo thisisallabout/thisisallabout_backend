@@ -112,7 +112,7 @@ def read_parse_csv(source_origin, type):
 
             print('Initiating aggregator unit...')
             print('Setting up MongoClient kevin@main')
-            client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+            client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
             db = client['main']
 
             collection = db['aggregator_trumpsaid']
@@ -130,7 +130,7 @@ def read_parse_csv(source_origin, type):
         try:
             print('Initiating aggregator unit...')
             print('Setting up MongoClient kevin@main')
-            client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+            client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
             db = client['main']
 
             collection = db['aggregator_trumpsaid']

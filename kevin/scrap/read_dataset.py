@@ -14,7 +14,7 @@ print('Fetched pickled dataset: total length: {0}'.format(len(unserialized_data)
 
 print('Initiating aggregator unit...')
 print('Setting up MongoClient kevin@main')
-client = MongoClient('mongodb://kevin:eHAdpMJze8XubCUWGXo@23.239.14.16:27017/main')
+client = MongoClient('mongodb://test:test@0.0.0.0:9999/main')
 db = client['main']
 
 def aggregator_storeobject():
