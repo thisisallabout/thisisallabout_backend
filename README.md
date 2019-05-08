@@ -1,5 +1,5 @@
 # kevin
-Full back-end set for [thisisallabout](https://thisisallabout.com), a non-profit data journalism project.
+Full back-end set for [thisisallabout; originally hosted on thisisallabout.com](https://toddoh.com/thisisallabout), a non-profit data journalism project. To see some of visualization work live, go to the link above or take a look at [the front-end repo](https://github.com/toddoh/thisisallabout).
   
 ## Modules
 
