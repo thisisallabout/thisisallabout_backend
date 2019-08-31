@@ -1,5 +1,5 @@
 # kevin
-Full back-end set for [thisisallabout; originally hosted on thisisallabout.com](https://toddoh.com/thisisallabout), a non-profit data journalism project. To see some of visualization work live, go to the link above or take a look at [the front-end repo](https://github.com/toddoh/thisisallabout).
+Full back-end set for [thisisallabout](https://thisisallabout.com). To see some of visualization work live, go to the link above or take a look at [the front-end repo](https://github.com/toddoh/thisisallabout).
   
 ## Modules
 
@@ -91,4 +91,4 @@ You may set up your own twitter list and connect it to aggregator module via Twi
 
 ## Maintainer
 
-Todd Oh (toddstonefieldoh@gmail.com) [twitter](https://twitter.com/_toddoh)
+Todd Oh (toddstonefieldoh@gmail.com) [twitter](https://twitter.com/tstonefieldoh)
